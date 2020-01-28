@@ -47,12 +47,12 @@
                 </div><a href="post.html">
                     <h2 class="h4">{{ obj.title }}</h2></a>
                 </header>
-                <p>{{ obj.overview }}</p>
+                <p>{{ obj.overview|truncatewords:150  }}</p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ obj.author }}</span></div></a>
                   <div class="date"><i class="icon-clock"></i> {{ obj.timestamp|timesince }}ago</div>
-                  <div class="comments"><i class="icon-comment"></i>1{{ obj.coment_count }}</div>
+                  <div class="comments"><i class="icon-comment"></i>{{ obj.coment_cout }}</div>
                 </footer>
               </div>
             </div>
@@ -115,8 +115,8 @@
           </div>
           <div class="col-md-8">
             <div class="form-holder">
-              <form action=".">
-                {% crsf_token %}
+              <form action="." method="POST">
+                {% csrf_token %}
                 <div class="form-group">
                   <input type="email" name="email" id="email" placeholder="Type your email address">
                   <button type="submit" class="submit">Subscribe</button>

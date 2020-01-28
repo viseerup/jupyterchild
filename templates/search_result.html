@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block content %}
+
+  <div class="widget latest-posts">
+            <header>
+              <h3 class="h6">Search results</h3>
+            </header>
+            <div class="blog-posts">
+              {% for lat in queryset %}
+              <a href="{{ lat.get_absolute_url }}">
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src="{{lat.thumbnail.url}}" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{lat.title}}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{lat.view_count}}</div>
+                      <div class="comments"><i class="icon-comment"></i>{{lat.coment_cout}}</div>
+                    </div>
+                  </div>
+                </div></a> {% endfor %}   </div>
+              
+          </div>
+
+
+
+
+ {% endblock content %}
