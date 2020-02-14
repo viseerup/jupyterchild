@@ -1,9 +1,9 @@
 from django.db.models import Count, Q
 from django .core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect,reverse
 from .models import Post, Author, Comment
 from marketing.models import Signup
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 
 
 
@@ -88,9 +88,10 @@ def post(request, id):
             form.instance.user = request.user
             form.instance.post = post
             form.save()
-            return redirect("post-detail", kwargs={
-                'id': post.id
-            })
+            return redirect(reverse("post-detail", kwargs={
+                'id': post.pk
+            }))
+            
     context = {
         'post': post,
         'most_recent': most_recent,
@@ -102,6 +103,18 @@ def post(request, id):
 
 
 
+def post_create(request):
+	pass
 
 
 
+
+def post_update(request, id):
+	pass
+
+
+
+
+
+def post_delete(request, id):
+	pass
