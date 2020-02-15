@@ -31,6 +31,7 @@ urlpatterns = [
     path('post/<id>/delete/', post_delete, name='post-delete'),
     path('create/', post_create, name='post_create'),
     path('tinymce/', include('tinymce.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:

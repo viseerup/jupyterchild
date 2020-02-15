@@ -37,8 +37,8 @@
                     <div class="title"><span></span></div></a>
                   <div class="d-flex align-items-center flex-wrap">       
                     <div class="date"><i class="icon-clock"></i> {{post.timestamp|timesince}} ago</div>
-                    <div class="views"><i class="icon-eye"></i> {{post.view_cout}}</div>
-                    <div class="comments meta-last"><i class="icon-comment"></i>{{post.coment_count}}</div>
+                    <div class="views"><i class="icon-eye"></i> {{post.view_count}}</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>{{post.coment_cout}}</div>
                   </div>
                 </div>
                 <div class="post-body">
@@ -107,6 +107,8 @@
                     </div>
                   </form>
                 </div>
+                {% else %}
+                <a href="{% url 'account_login' %}" class="btn btn-secondary">Login to comment</a>
                 {% endif %}
               </div>
             </div>
