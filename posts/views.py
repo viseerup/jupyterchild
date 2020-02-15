@@ -7,6 +7,17 @@ from .forms import CommentForm, PostForm
 
 
 
+
+def get_author(user):
+	qs = Author.objects.filter(user=user)
+	if qs.exists():
+		return qs[0]
+	return None
+
+
+
+
+
 def search(request):
 	queryset = Post.objects.all()
 	query = request.GET.get('q')
@@ -35,14 +46,14 @@ def index(request):
 	featured = Post.objects.filter(featured=True)[0:3]
 	latest = Post.objects.order_by('-timestamp')[0:3]
 	if request.method == "post":
-	    	email - request.POST["email"]
-	    	new_signup = Signup()
-	    	new_signup.email = email
-	    	new_signup.save()
+			email - request.POST["email"]
+			new_signup = Signup()
+			new_signup.email = email
+			new_signup.save()
 	
 	context = {
-	    'object_list':featured,
-	    'latest':latest }
+		'object_list':featured,
+		'latest':latest }
 
 	return render(request, 'index.html', context)
 
@@ -64,12 +75,12 @@ def blog(request):
 		paginated_queryset = paginated.page(paginator.num_pages)
 	
 	context = {
-	    'category_count': category_count,
-	    'queryset': paginated_queryset,
-	    'latest_post': latest_post,
-	    'page_request_var': page_request_var,
-	    
-	    }
+		'category_count': category_count,
+		'queryset': paginated_queryset,
+		'latest_post': latest_post,
+		'page_request_var': page_request_var,
+		
+		}
 
 	return render(request, 'blog.html', context)	
 
@@ -77,44 +88,78 @@ def blog(request):
 
 
 def post(request, id):
-    category_count = get_category_count()
-    most_recent = Post.objects.order_by('-timestamp')[:3]
-    post = get_object_or_404(Post, id=id)
+	category_count = get_category_count()
+	most_recent = Post.objects.order_by('-timestamp')[:3]
+	post = get_object_or_404(Post, id=id)
 
-    
-    form = CommentForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            form.instance.user = request.user
-            form.instance.post = post
-            form.save()
-            return redirect(reverse("post-detail", kwargs={
-                'id': post.pk
-            }))
-            
-    context = {
-        'post': post,
-        'most_recent': most_recent,
-        'category_count': category_count,
-        'form': form
-    }
-    return render(request, 'post.html', context)
+	
+	form = CommentForm(request.POST or None)
+	if request.method == "POST":
+		if form.is_valid():
+			form.instance.user = request.user
+			form.instance.post = post
+			form.save()
+			return redirect(reverse("post-detail", kwargs={
+				'id': post.pk
+			}))
+			
+	context = {
+		'post': post,
+		'most_recent': most_recent,
+		'category_count': category_count,
+		'form': form
+	}
+	return render(request, 'post.html', context)
 
 
 
 
 def post_create(request):
-	pass
+	title = 'Create'
+	author = get_author(request.user)
+	form = PostForm(request.POST or None, request.FILES or None)
+	author = get_author(request.user)
+	if request.method == "POST":
+		if form.is_valid():
+			form.instance.author = author
+			form.save()
+			return redirect(reverse("post-detail", kwargs={
+				'id': form.instance.id
+			}))
+	context = {
+		'title': title,
+
+		'form': form
+	}
+	return render(request, 'post_create.html', context)
+
+	
 
 
 
 
 def post_update(request, id):
-	pass
+	title = 'Update'
+	post = get_object_or_404(Post, id=id)
+	form = PostForm(request.POST or None, request.FILES or None, instance=post)
+	if request.method == "POST":
+		if form.is_valid():
+			form.instance.author = author
+			form.save()
+			return redirect(reverse("post-detail", kwargs={
+				'id': form.instance.id
+			}))
+	context = {
+		'title': title,
+		'form': form
+	}
+	return render(request, 'post_create.html', context)
 
 
 
 
 
 def post_delete(request, id):
-	pass
+	post = get_object_or_404(Post, id=id)
+	post.delete()
+	return redirect(reverse("post-list"))
