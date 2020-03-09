@@ -10,6 +10,9 @@ class TinyMCEWidget(TinyMCE):
 
 
 
+
+
+
 class CommentForm(forms.ModelForm):
 	content = forms.CharField(widget=forms.Textarea(attrs={
 	    'class': 'form-control',

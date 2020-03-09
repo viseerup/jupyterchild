@@ -45,6 +45,7 @@ def get_category_count():
 def index(request):
 	featured = Post.objects.filter(featured=True)[0:3]
 	latest = Post.objects.order_by('-timestamp')[0:3]
+	latest_post = Post.objects.order_by('-timestamp')[0:3]
 	if request.method == "post":
 			email - request.POST["email"]
 			new_signup = Signup()
@@ -53,7 +54,8 @@ def index(request):
 	
 	context = {
 		'object_list':featured,
-		'latest':latest }
+		'latest':latest,
+		'latest_post':latest_post, }
 
 	return render(request, 'index.html', context)
 
@@ -90,6 +92,7 @@ def blog(request):
 def post(request, id):
 	category_count = get_category_count()
 	most_recent = Post.objects.order_by('-timestamp')[:3]
+	latest_post = Post.objects.order_by('-timestamp')[0:3]
 	post = get_object_or_404(Post, id=id)
 	if request.user.is_authenticated:
 		PostView.objects.get_or_create(user=request.user, post=post)
@@ -108,7 +111,8 @@ def post(request, id):
 		'post': post,
 		'most_recent': most_recent,
 		'category_count': category_count,
-		'form': form
+		'form': form,
+		'latest_post': latest_post,
 	}
 	return render(request, 'post.html', context)
 
@@ -164,3 +168,45 @@ def post_delete(request, id):
 	post = get_object_or_404(Post, id=id)
 	post.delete()
 	return redirect(reverse("post-list"))
+
+
+
+
+
+def contact(request):
+	latest_post = Post.objects.order_by('-timestamp')[0:3]
+	return render(request, 'contact.html', {'latest_post':latest_post})
+
+
+
+
+
+def category(request):
+
+	queryset = Post.objects.all()
+	if 'Neoexpressionism' in request.GET:
+		queryset = Post.objects.filter(categories__title='Neo-expressionism')
+
+	elif 'Abstract' in request.GET:
+		queryset = Post.objects.filter(categories__title='Abstract')
+
+	elif 'Conceptual' in request.GET:
+		queryset = Post.objects.filter(categories__title='Conceptual')
+
+	elif 'Fabrics' in request.GET:
+		queryset = Post.objects.filter(categories__title='Fabrics')
+
+	elif 'Installation' in request.GET:
+		queryset = Post.objects.filter(categories__title='Installation')
+
+	elif 'Creative' in request.GET:
+		queryset = Post.objects.filter(categories__title='Creative writing')
+	
+	context = {
+	'queryset': queryset
+	}
+	return render(request, 'search_result.html', context)
+
+
+
+	

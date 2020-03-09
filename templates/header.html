@@ -29,16 +29,32 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item"><a href="/" class="nav-link active ">Home</a>
               </li>
-              <li class="nav-item"><a href="/blog" class="nav-link ">Blog</a>
+               <li class="nav-item"><a href="/blog"  class="nav-link ">Blog</a>
               </li>
-          
+               <li class="nav-item"><a href="/contact"  class="nav-link ">Contact</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Contact</a>
-              </li>
+              <li class="nav-item"><div class="dropdown">
+                <a class="btn btn-default dropdown-toggle" href="/category" name="q" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Gallery
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                 <a class="dropdown-item" href="{% url 'category' %}?Neoexpressionism">Neo-expressionism</a>
+                 <a class="dropdown-item" name="Abstract" href="{% url 'category' %}?Abstract">Abstract</a>
+                  <a class="dropdown-item" href="{% url 'category' %}?Conceptual">Conceptual</a>
+                  <a class="dropdown-item" href="{% url 'category' %}?Fabrics">Fabrics</a>
+                  <a class="dropdown-item" href="{% url 'category' %}?Installation">Installation</a>
+                  <a class="dropdown-item" href="{% url 'category' %}?Creative">Creative writing & spoken</a>
+                 </div>
+                 </div> </li>
+
+
+             
               {% if request.user.is_staff %}
                <li class="nav-item"><a href="{% url 'post_create' %}" class="nav-link ">Create</a>
               </li>
               {% endif %}
+
             </ul>
             <div class="navbar-text"><a href="{% url 'search' %}"  class="search-btn"><i class="icon-search-1"></i></a></div>
            <!-- <ul class="langs navbar-text"><a href="#" class="active">EN</a><span>           </span><a href="#">ES</a></ul> -->
