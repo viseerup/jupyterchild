@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from tinymce import HTMLField
-
+from ckeditor_uploader.fields import RichTextUploadingField 
 
 # Create your models here.
 
@@ -54,7 +54,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=100)
 	overview = models.TextField()
 	timestamp = models.DateTimeField(auto_now_add=True)
-	content = HTMLField()
+	content = RichTextUploadingField(blank=True, null=True)
 	author = models.ForeignKey(Author, on_delete=models.CASCADE)
 	#coment_cout = models.IntegerField(default=0)
 	#view_count = models.IntegerField(default=0)

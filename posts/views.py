@@ -181,6 +181,15 @@ def contact(request):
 
 
 
+def signupRedirect(request):
+	
+	return render(request, 'blog.html', {})
+
+
+
+
+
+
 def category(request):
 
 	queryset = Post.objects.all()

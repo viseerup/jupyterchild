@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from posts.views import index, blog, post, search, post_update, post_delete, post_create, contact,category
+from posts.views import index, blog, post, search, post_update, post_delete, post_create, contact,category,signupRedirect
 
 
 urlpatterns = [
@@ -33,7 +33,9 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('category/', category, name='category'),
     path('tinymce/', include('tinymce.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('allauth.urls')),
+    path('accounts/signup', signupRedirect, name='signup'),
 ]
 
 if settings.DEBUG:
