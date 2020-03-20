@@ -142,7 +142,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATIC_ROOT = os.path.join(VENV_PATH, 'staticfiles') 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
@@ -155,6 +155,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root')   
 
 
+STATIC_ROOT = os.path.join(VENV_PATH, 'staticfiles')  
 # Tinymce
 
 
