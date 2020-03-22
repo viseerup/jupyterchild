@@ -132,7 +132,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = os.path.join(VENV_PATH, 'staticfiles') 
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
@@ -204,7 +204,7 @@ AWS_S3_REGION_NAME = 'eu-central-1'
 
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 # This should already be in your settings.py
-django_heroku.settings(locals())
+
 
 
 django_heroku.settings(locals())
