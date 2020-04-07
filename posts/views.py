@@ -180,6 +180,12 @@ def contact(request):
 
 
 
+def artstatement(request):
+	latest_post = Post.objects.order_by('-timestamp')[0:3]
+	return render(request, 'artstatiment.html', {'latest_post':latest_post})
+
+
+
 
 def signupRedirect(request):
 	
@@ -201,6 +207,7 @@ def category(request):
 
 	elif 'Conceptual' in request.GET:
 		queryset = Post.objects.filter(categories__title='Conceptual')
+
 
 	elif 'Fabrics' in request.GET:
 		queryset = Post.objects.filter(categories__title='Fabrics')
