@@ -217,6 +217,9 @@ def category(request):
 
 	elif 'Creative' in request.GET:
 		queryset = Post.objects.filter(categories__title='Creative writing')
+
+	elif 'Exihibition' in request.GET:
+		queryset = Post.objects.filter(categories__title='Exihibition')
 	
 	context = {
 	'queryset': queryset
