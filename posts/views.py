@@ -221,8 +221,6 @@ def category(request):
 	elif 'Exihibition' in request.GET:
 		queryset = Post.objects.filter(categories__title='Exihibition')
 
-	elif 'Performance' in request.GET:
-		queryset = Post.objects.filter(categories__title='Performance')
 	
 	context = {
 	'queryset': queryset
